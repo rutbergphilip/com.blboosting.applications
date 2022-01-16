@@ -25,13 +25,5 @@ export class HttpService {
           .map((key) => `${key}=${queryParams[key]}`)
           .join('&')}`
       : newPath;
-    // let newPath = path.charAt(0) === '/' ? path : `/${path}`;
-    // if (!queryParams) {
-    //   return newPath;
-    // }
-    // const queryString = `?${Object.keys(queryParams)
-    //   .map((key) => `${key}=${queryParams[key]}`)
-    //   .join('&')}`;
-    // return newPath + queryString;
   }
 }

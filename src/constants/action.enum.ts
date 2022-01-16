@@ -1,4 +1,5 @@
 export enum Action {
-  ACCEPT = 'ACCEPT',
-  DENY = 'DENY',
+  ACCEPT = 'accept',
+  DENY = 'deny',
+  CLOSE = 'close',
 }

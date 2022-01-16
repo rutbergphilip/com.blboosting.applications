@@ -1,28 +1,35 @@
-import { IEvent } from './interfaces/event.interface';
-import { Client, Intents } from 'discord.js';
-
+import { buildApplicationMenu } from './build/menu.build';
+import { Client, Intents, SelectMenuInteraction } from 'discord.js';
+import { registerSlashCommands } from './events/interactions/slashcommands/slashcommands.factory';
+import { slashcommands } from './models/slashcommands.store';
+import { selectMenuDistribute } from './events/interactions/menu/menu.factory';
 require('dotenv').config();
 
-class Main {
-  private readonly client: Client;
-  private readonly events: Map<string, IEvent>;
+const client = new Client({
+  intents: new Intents(32767),
+  restTimeOffset: 0,
+});
 
-  constructor() {
-    this.client = new Client({
-      intents: new Intents(Number(process.env.INTENTS)),
-      restTimeOffset: 0,
-    });
+client.on('ready', async () => {
+  await registerSlashCommands();
+  await buildApplicationMenu(client);
+  console.log(`Logged in as ${client.user.tag}!`);
+});
 
-    this.events.forEach((value, key) => {
-      try {
-        this.client.on(key, value.run.bind(value, this.client));
-      } catch (error) {
-        console.error(`Event: ${key} crashed`);
-      }
-    });
-
-    this.client.login(process.env.TOKEN).catch(console.error);
+client.on('interactionCreate', async (interaction) => {
+  switch (true) {
+    case interaction.isCommand():
+      // @ts-ignore
+      await slashcommands.get(interaction.commandName)(interaction);
+      break;
+    case interaction.isSelectMenu():
+      await selectMenuDistribute(<SelectMenuInteraction>interaction);
+      break;
+    case interaction.isButton():
+      break;
+    default:
+      break;
   }
-}
+});
 
-new Main();
+client.login(process.env.TOKEN);
