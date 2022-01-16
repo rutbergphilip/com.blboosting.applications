@@ -1,10 +1,10 @@
+import { ApplicationChoices } from './../../../../constants/application.enum';
+import { ApplicationRepository } from './../../../../persistance/repositories/application.repository';
 import { Colors } from './../../../../constants/colors.enum';
 import { Emojis } from './../../../../constants/dev/emojis.enum';
 import { MAIN_LOGO } from './../../../../constants/logo.constant';
 import { Roles } from './../../../../constants/dev/roles.enum';
 import {
-  Guild,
-  GuildMember,
   MessageActionRow,
   MessageButton,
   MessageComponentInteraction,
@@ -26,7 +26,7 @@ export const advertiserApplication = async (
   const applicant = interaction.member.user;
   // create a ticket channel with applicant as author
   const ticketChannel = await interaction.guild.channels.create(
-    `ticket-${applicant.id}`,
+    `adv-app-${applicant.username}`,
     {
       type: ChannelTypes.GUILD_TEXT,
       parent: '931847879402876939', // ticket category
@@ -34,9 +34,17 @@ export const advertiserApplication = async (
     }
   );
 
-  // send an application embed with information and question forms
-  // add buttons on the embed for closing the application
-  const applicationEmbed = await ticketChannel.send({
+  const repository = new ApplicationRepository();
+  const result = await repository.insert({
+    type: ApplicationChoices.ADVERTISER,
+    applicantId: applicant.id,
+    channelId: ticketChannel.id,
+    isAccepted: false,
+    isOpen: true,
+    isArchived: false,
+  });
+
+  await ticketChannel.send({
     content: `Hello ${applicant}! Please begin by filling out the template below and <@&${Roles.MANAGEMENT}> will review you application as soon as possible.`,
     embeds: [embed()],
     components: [embedComponent()],
@@ -45,14 +53,9 @@ export const advertiserApplication = async (
   await interaction.editReply({
     content: `${Emojis.TADA} ticket created ${ticketChannel}!`,
   });
-
-  // save the ticket channel to mongodb
-
-  // once ticket is closed, set the ticket to "closed" and set who closed it in mongodb
-  // if the applicant is not in the guild, remove the ticket from mongodb
 };
 
-const embedComponent = () => {
+const embedComponent = (): MessageActionRow => {
   return new MessageActionRow().addComponents(
     new MessageButton()
       .setCustomId('close_channel')

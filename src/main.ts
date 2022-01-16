@@ -1,8 +1,14 @@
 import { buildApplicationMenu } from './build/menu.build';
-import { Client, Intents, SelectMenuInteraction } from 'discord.js';
+import {
+  ButtonInteraction,
+  Client,
+  Intents,
+  SelectMenuInteraction,
+} from 'discord.js';
 import { registerSlashCommands } from './events/interactions/slashcommands/slashcommands.factory';
 import { slashcommands } from './models/slashcommands.store';
 import { selectMenuDistribute } from './events/interactions/menu/menu.factory';
+import { buttonDistribute } from './events/interactions/button/button.factory';
 require('dotenv').config();
 
 const client = new Client({
@@ -26,6 +32,7 @@ client.on('interactionCreate', async (interaction) => {
       await selectMenuDistribute(<SelectMenuInteraction>interaction);
       break;
     case interaction.isButton():
+      await buttonDistribute(<ButtonInteraction>interaction);
       break;
     default:
       break;

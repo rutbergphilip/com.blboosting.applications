@@ -30,7 +30,7 @@ const selectMenuDistribute = (interaction) => __awaiter(void 0, void 0, void 0, 
             case application_enum_1.ApplicationChoices.RAID_LEADER:
                 break;
             default:
-                console.log('Unknown application choice', interaction.customId);
+                console.log('Unknown application choice', interaction.values[0]);
                 break;
         }
     }

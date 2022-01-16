@@ -14,6 +14,7 @@ const discord_js_1 = require("discord.js");
 const slashcommands_factory_1 = require("./events/interactions/slashcommands/slashcommands.factory");
 const slashcommands_store_1 = require("./models/slashcommands.store");
 const menu_factory_1 = require("./events/interactions/menu/menu.factory");
+const button_factory_1 = require("./events/interactions/button/button.factory");
 require('dotenv').config();
 const client = new discord_js_1.Client({
     intents: new discord_js_1.Intents(32767),
@@ -32,6 +33,9 @@ client.on('interactionCreate', (interaction) => __awaiter(void 0, void 0, void 0
             break;
         case interaction.isSelectMenu():
             yield (0, menu_factory_1.selectMenuDistribute)(interaction);
+            break;
+        case interaction.isButton():
+            yield (0, button_factory_1.buttonDistribute)(interaction);
             break;
         default:
             break;

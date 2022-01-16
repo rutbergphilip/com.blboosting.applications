@@ -10,6 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.advertiserApplication = void 0;
+const application_enum_1 = require("./../../../../constants/application.enum");
+const application_repository_1 = require("./../../../../persistance/repositories/application.repository");
 const colors_enum_1 = require("./../../../../constants/colors.enum");
 const emojis_enum_1 = require("./../../../../constants/dev/emojis.enum");
 const logo_constant_1 = require("./../../../../constants/logo.constant");
@@ -22,14 +24,21 @@ const advertiserApplication = (interaction) => __awaiter(void 0, void 0, void 0,
     });
     const applicant = interaction.member.user;
     // create a ticket channel with applicant as author
-    const ticketChannel = yield interaction.guild.channels.create(`ticket-${applicant.id}`, {
+    const ticketChannel = yield interaction.guild.channels.create(`adv-app-${applicant.username}`, {
         type: 0 /* GUILD_TEXT */,
         parent: '931847879402876939',
         permissionOverwrites: channelPermissions(interaction, applicant),
     });
-    // send an application embed with information and question forms
-    // add buttons on the embed for closing the application
-    const applicationEmbed = yield ticketChannel.send({
+    const repository = new application_repository_1.ApplicationRepository();
+    const result = yield repository.insert({
+        type: application_enum_1.ApplicationChoices.ADVERTISER,
+        applicantId: applicant.id,
+        channelId: ticketChannel.id,
+        isAccepted: false,
+        isOpen: true,
+        isArchived: false,
+    });
+    yield ticketChannel.send({
         content: `Hello ${applicant}! Please begin by filling out the template below and <@&${roles_enum_1.Roles.MANAGEMENT}> will review you application as soon as possible.`,
         embeds: [embed()],
         components: [embedComponent()],
@@ -37,9 +46,6 @@ const advertiserApplication = (interaction) => __awaiter(void 0, void 0, void 0,
     yield interaction.editReply({
         content: `${emojis_enum_1.Emojis.TADA} ticket created ${ticketChannel}!`,
     });
-    // save the ticket channel to mongodb
-    // once ticket is closed, set the ticket to "closed" and set who closed it in mongodb
-    // if the applicant is not in the guild, remove the ticket from mongodb
 });
 exports.advertiserApplication = advertiserApplication;
 const embedComponent = () => {

@@ -1,5 +1,5 @@
 export enum Action {
   ACCEPT = 'accept',
   DENY = 'deny',
-  CLOSE = 'close',
+  CLOSE_CHANNEL = 'close_channel',
 }

@@ -5,10 +5,11 @@ import { ApplicationChoices } from '../../constants/application.enum';
 export interface ApplicationEntity extends BaseEntity {
   type: ApplicationChoices;
   applicantId: string;
-  managerId: string;
+  managerId?: string;
   channelId?: string;
   isAccepted: boolean;
-  character: {
+  isOpen?: boolean;
+  character?: {
     region: Region;
     name: string;
     realm: string;
