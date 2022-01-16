@@ -5,10 +5,10 @@ import { ObjectId } from 'mongodb';
 export class ApplicationRepository {
   private static readonly COLLECTION = 'applications';
 
-  async get(objectId: ObjectId): Promise<void> {
+  async get(objectId: ObjectId): Promise<ApplicationEntity> {
     const database = await ConnectionService.get();
     return await database
-      .collection(ApplicationRepository.COLLECTION)
+      .collection<ApplicationEntity>(ApplicationRepository.COLLECTION)
       .findOne(objectId);
   }
 
