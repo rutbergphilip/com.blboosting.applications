@@ -6,6 +6,7 @@ export interface ApplicationEntity extends BaseEntity {
   type: ApplicationChoices;
   applicantId: string;
   managerId: string;
+  channelId?: string;
   isAccepted: boolean;
   character: {
     region: Region;
