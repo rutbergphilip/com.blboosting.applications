@@ -1,6 +1,7 @@
 import { advertiserApplication } from './choices/choice.advertiser';
 import { MessageComponentInteraction, SelectMenuInteraction } from 'discord.js';
 import { ApplicationChoices } from '../../../constants/application.enum';
+import { mythicPlusApplication } from './choices/choice.mplus';
 
 export const selectMenuDistribute = async (
   interaction: SelectMenuInteraction
@@ -13,6 +14,7 @@ export const selectMenuDistribute = async (
         await advertiserApplication(interaction);
         break;
       case ApplicationChoices.MYTHIC_PLUS:
+        await mythicPlusApplication(interaction);
         break;
       case ApplicationChoices.RAID:
         break;

@@ -3,9 +3,10 @@ import { Action } from './../../../constants/action.enum';
 import { ButtonInteraction } from 'discord.js';
 
 export const buttonDistribute = async (interaction: ButtonInteraction) => {
+  const id = interaction.customId.toLowerCase();
   try {
-    switch (interaction.customId) {
-      case Action.CLOSE_CHANNEL:
+    switch (true) {
+      case id.includes(Action.CLOSE_CHANNEL):
         await closeChannel(interaction);
         break;
       default:

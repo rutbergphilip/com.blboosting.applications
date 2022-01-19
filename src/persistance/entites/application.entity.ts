@@ -12,6 +12,14 @@ export interface ApplicationEntity extends BaseEntity {
   character?: {
     region: Region;
     name: string;
+    faction: string;
     realm: string;
+    scores: Scores;
   };
+}
+
+interface Scores {
+  tank: number;
+  healer: number;
+  dps: number;
 }

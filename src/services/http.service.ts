@@ -10,7 +10,8 @@ interface Options {
 export class HttpService {
   static async get<T>(options: Options): Promise<T> {
     const response = await axios.get<T>(
-      this.getPathWithQueryParams(options.path, options.queryParameters)
+      options.hostname +
+        this.getPathWithQueryParams(options.path, options.queryParameters)
     );
     return response.data;
   }

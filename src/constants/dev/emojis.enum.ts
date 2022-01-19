@@ -6,5 +6,6 @@ export enum Emojis {
   BLB_PVP = '<:BLB_PvP:931679776576536626> ',
   ADVERTISER = '<:Advertiser:931681778945626163>',
   TADA = '🎉',
+  ID = '🆔',
   LOADING_GIF = '<a:loading:931259045640294522>',
 }

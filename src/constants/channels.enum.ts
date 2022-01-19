@@ -1,0 +1,3 @@
+export enum Channels {
+  APPLICATION_HANDLE = '933078581238710322',
+}

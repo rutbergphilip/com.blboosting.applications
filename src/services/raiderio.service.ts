@@ -18,7 +18,7 @@ export class RaiderIoService {
       return cacheItem.value;
     }
     const value = await HttpService.get<RaiderIoCharacter>({
-      hostname: 'raider.io',
+      hostname: 'https://raider.io',
       path: '/api/v1/characters/profile',
       queryParameters: {
         name: name,

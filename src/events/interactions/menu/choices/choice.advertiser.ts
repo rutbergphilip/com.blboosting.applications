@@ -58,7 +58,7 @@ export const advertiserApplication = async (
 const embedComponent = (): MessageActionRow => {
   return new MessageActionRow().addComponents(
     new MessageButton()
-      .setCustomId('close_channel')
+      .setCustomId('close-channel')
       .setEmoji('🔒')
       .setLabel('Close')
       .setStyle('SECONDARY')
