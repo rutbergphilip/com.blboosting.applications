@@ -1,9 +1,9 @@
 import { ApplicationChoices } from './../../../../constants/application.enum';
 import { ApplicationRepository } from './../../../../persistance/repositories/application.repository';
 import { Colors } from './../../../../constants/colors.enum';
-import { Emojis } from './../../../../constants/dev/emojis.enum';
+import { Emojis } from '../../../../constants/emojis.enum';
 import { MAIN_LOGO } from './../../../../constants/logo.constant';
-import { Roles } from './../../../../constants/dev/roles.enum';
+import { Roles } from '../../../../constants/roles.enum';
 import {
   MessageActionRow,
   MessageButton,

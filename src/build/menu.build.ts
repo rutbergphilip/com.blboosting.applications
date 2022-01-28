@@ -5,7 +5,7 @@ import {
   MessageEmbed,
   TextChannel,
 } from 'discord.js';
-import { Channels } from '../constants/dev/channels.enum';
+import { Channels } from '../constants/channels.enum';
 
 export const buildApplicationMenu = async (client: Client) => {
   try {

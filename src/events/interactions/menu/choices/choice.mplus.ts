@@ -6,7 +6,7 @@ import {
 } from './../../../../constants/logo.constant';
 import { ChannelTypes } from 'discord.js/typings/enums';
 import { ApplicationEntity } from './../../../../persistance/entites/application.entity';
-import { Channels } from './../../../../constants/channels.enum';
+import { Channels } from '../../../../constants/channels.enum';
 import { Region } from './../../../../constants/region.enum';
 import { ApplicationChoices } from './../../../../constants/application.enum';
 import { ApplicationRepository } from '../../../../persistance/repositories/application.repository';
@@ -19,7 +19,7 @@ import {
   MessageEmbed,
   TextChannel,
 } from 'discord.js';
-import { Emojis } from '../../../../constants/dev/emojis.enum';
+import { Emojis } from '../../../../constants/emojis.enum';
 
 export const mythicPlusApplication = async (
   interaction: MessageComponentInteraction

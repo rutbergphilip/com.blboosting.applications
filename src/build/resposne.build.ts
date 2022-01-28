@@ -1,5 +1,5 @@
 import { BLB_KEYS } from './../constants/logo.constant';
-import { Emojis } from './../constants/dev/emojis.enum';
+import { Emojis } from '../constants/emojis.enum';
 import { MessageEmbed } from 'discord.js';
 import { ApplicationEntity } from '../persistance/entites/application.entity';
 
